@@ -1,6 +1,6 @@
 ---
 title: "lab-07-simpsons.Rmd"
-author: "Musab Isah "
+author: "nawal faleh almutairi "
 date: "17 March 2021"
 output: pdf_document
 ---
@@ -22,71 +22,84 @@ library(mosaicData)
 
 1.  
 ```{r whickam}
-
+?Whickham
 ```
     
 Your answer:
+the data is observational as the description states that is based on age, smoking, and mortaliy, which are all observable events and not produced via experiments.  
 
 2.  
 ```{r observations}
-
+nrow(Whickham)
 ```
 
-Your answer;
+Your answer;there are 1,314 observations. as we know every row is an observation
 
 3.  
 
 ```{r number_variables}
-
+names(Whickham)
 ```
-
-Your answer:  
+Your answer:
+Your answer:there are 3 variables, "outcome", "smoker", and "age"
 
 ```{r var_type}
-
+unique(Whickham$outcome)
+unique(Whickham$smoker)
+unique(Whickham$age)
 ```
 
 Your answer: 
-
+Using the unique() function on the 3 variables we could see that "outcome" only takes Alive or Dead value, which makes it categorical non-ordinal. "smoker" only takes yes or no, which also makes it categorical non-ordinal. Age is numerical continous data.                                                                                                                
+one of the best ways to visualis categorical data is through the use of bar charts
 ```{r plot_outcome}
-
+ggplot(Whickham, aes(x = outcome)) +
+ geom_bar()
 ```
 
 
 ```{r plot_smoker}
-
+ggplot(data=Whickham, aes(x=smoker, y=outcome, color=outcome)) + geom_bar(stat="identity")
 ```
 
 ```{r plot_age}
-
+ggplot (Whickham, aes(x = age)) +geom_boxplot()
 ```
-
-
-4. 
+ANSWER4
+4. One out of every two smokers dies of a disease caused by smoking cigarettes, directly.
 
 ```{r plot_smokeVSincome_1}
-
+ggplot(data=Whickham, aes(x=smoker, y=outcome, color=outcome)) + geom_bar(stat="identity")    
 ```
 
 Knit, commit, and push to github.
 
-5. 
+5. Answer5 
+Tobacco kills nearly half of those who use it.
+Globally, about 80% of smokers live in low and middle income countries.
+Tobacco contains tar, which causes lung cancer and narrowing of the airways.
+Reduces the efficiency of red blood cells in transporting oxygen due to its carbon monoxide content; Which leads to:
+Arteriosclerosis, high blood pressure.
+Emphysema and bronchitis, Heart attack (angina),Optic atrophy.
+brain attack, Teeth falling out, Cardiac infarction.
 
 ```{r plot_smokeVSincome_2}
 Whickham %>%
   count(smoker, outcome)
+502+230
+ 230/732
 ```
 
 6.
 
 ```{r age_cat}
-
+Whickham <- Whickham%>% mutate (age_cat = case_when (age <= 44 ~ "18-44", age > 44. & age <= 64 ~ "45-64", age > 64 ~ "65+"))
 ```
 
 7. 
 
 ```{r plot_smokeVSincome_3}
-
+ggplot(data=Whickham, aes(x=outcome, y=smoker,color=smoker, fill=age_cat)) + geom_bar(stat="identity") +facet_wrap(~age_cat)
 ```
 
 Knit, commit, and push to github.
